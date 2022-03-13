@@ -1,5 +1,4 @@
-package com.ustc.ruoan.framework.web.util;
-
+package com.ustc.ruoan.framework.redis.util;
 
 import org.springframework.aop.framework.AdvisedSupport;
 import org.springframework.aop.framework.AopProxy;

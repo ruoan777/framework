@@ -1,8 +1,8 @@
 package com.ustc.ruoan.framework.web.service;
 
+import com.ustc.ruoan.framework.redis.ano.RedisProvider;
+import com.ustc.ruoan.framework.redis.provider.CacheProvider;
 import com.ustc.ruoan.framework.web.anno.MethodLog;
-import com.ustc.ruoan.framework.web.anno.RedisProvider;
-import com.ustc.ruoan.framework.web.redis.CacheProvider;
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RedisService {
 
-    @RedisProvider("hello")
+    @RedisProvider("redis_cluster")
     private CacheProvider cacheProvider;
 
     @MethodLog

@@ -1,4 +1,4 @@
-package com.ustc.ruoan.framework.web.redis;
+package com.ustc.ruoan.framework.redis.provider;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,9 +1,10 @@
-package com.ustc.ruoan.framework.web.aspect;
+package com.ustc.ruoan.framework.redis.configuration;
 
-import com.ustc.ruoan.framework.web.anno.RedisProvider;
-import com.ustc.ruoan.framework.web.redis.CacheProvider;
-import com.ustc.ruoan.framework.web.spring.SpringInitializingBean;
-import com.ustc.ruoan.framework.web.util.AopTargetUtils;
+import com.ustc.ruoan.framework.redis.ano.RedisProvider;
+import com.ustc.ruoan.framework.redis.provider.CacheProvider;
+import com.ustc.ruoan.framework.redis.spring.RedisAutoConfigurationBean;
+import com.ustc.ruoan.framework.redis.util.AopTargetUtils;
+import lombok.SneakyThrows;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
 import org.slf4j.Logger;
@@ -14,18 +15,21 @@ import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Set;
 
-
 /**
  * @author ruoan
  */
-public class RedisInitializingAspect extends SpringInitializingBean {
+public class RedisInitializing extends RedisAutoConfigurationBean {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(RedisInitializingAspect.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(RedisInitializing.class);
 
     private static final String BASE_PACKAGE = "com.ustc.ruoan";
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
+    public RedisInitializing() {
+        init();
+    }
+
+    @SneakyThrows
+    public void init() {
         Reflections scanner = new Reflections(BASE_PACKAGE, Scanners.FieldsAnnotated);
         Set<Field> fields = scanner.getFieldsAnnotatedWith(RedisProvider.class);
         for (Field field : fields) {

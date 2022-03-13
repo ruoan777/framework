@@ -1,4 +1,4 @@
-package com.ustc.ruoan.framework.web.anno;
+package com.ustc.ruoan.framework.redis.ano;
 
 import java.lang.annotation.*;
 
