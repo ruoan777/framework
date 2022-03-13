@@ -1,7 +1,7 @@
 package com.ustc.ruoan.framework.web.configuration;
 
 import com.ustc.ruoan.framework.web.filter.ContextFilter;
-import com.ustc.ruoan.framework.web.spring.ContextFilterCondition;
+import com.ustc.ruoan.framework.web.spring.ContextCondition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -16,7 +16,7 @@ import javax.servlet.DispatcherType;
  * @author ruoan
  */
 @Configuration
-@Conditional(ContextFilterCondition.class)
+@Conditional(ContextCondition.class)
 @ConditionalOnClass(name = "javax.servlet.Filter")
 public class ContextFilterAutoConfiguration {
 
@@ -28,7 +28,7 @@ public class ContextFilterAutoConfiguration {
         public FilterRegistrationBean<ContextFilter> factory() {
             FilterRegistrationBean<ContextFilter> filter = new FilterRegistrationBean<>();
             filter.setFilter(new ContextFilter());
-            filter.setName("cat-filter");
+            filter.setName("ruoan-filter");
             filter.addUrlPatterns("/*");
             filter.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.FORWARD);
             filter.setAsyncSupported(true);

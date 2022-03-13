@@ -8,9 +8,10 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 /**
  * @author ruoan
  */
-public class ContextFilterCondition implements Condition {
+public class ContextCondition implements Condition {
+
     @Override
     public boolean matches(@NonNull ConditionContext context, @NonNull AnnotatedTypeMetadata metadata) {
-        return true;
+        return false;
     }
 }
