@@ -5,10 +5,11 @@ import com.ustc.ruoan.framework.redis.provider.CacheProvider;
 import com.ustc.ruoan.framework.redis.spring.RedisAutoConfigurationBean;
 import com.ustc.ruoan.framework.redis.util.AopTargetUtils;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.aop.framework.AopProxyUtils;
+import org.springframework.context.annotation.Bean;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
@@ -18,14 +19,17 @@ import java.util.Set;
 /**
  * @author ruoan
  */
+@Slf4j
 public class RedisInitializing extends RedisAutoConfigurationBean {
-
-    private final Logger LOGGER = LoggerFactory.getLogger(RedisInitializing.class);
 
     private static final String BASE_PACKAGE = "com.ustc.ruoan";
 
     public RedisInitializing() {
-        init();
+    }
+
+    @SneakyThrows
+    @Override
+    public void afterPropertiesSet() {
     }
 
     @SneakyThrows
@@ -40,7 +44,8 @@ public class RedisInitializing extends RedisAutoConfigurationBean {
             for (Object target : values.values()) {
                 RedisProvider provider = field.getAnnotation(RedisProvider.class);
                 ReflectionUtils.makeAccessible(field);
-                LOGGER.info(" set " + target.getClass().getName() + " redis field name : " + provider.value());
+                log.info(" set " + target.getClass().getName() + " redis field name : " + provider.value());
+                Object singletonTarget = AopProxyUtils.getSingletonTarget(target);
                 target = AopTargetUtils.getTarget(target);
                 field.set(target, new CacheProvider("REDIS"));
             }

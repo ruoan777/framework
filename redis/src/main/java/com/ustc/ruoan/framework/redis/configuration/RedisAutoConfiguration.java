@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Scope;
 @ConditionalOnProperty(prefix = RedisConfigurationProperties.PREFIX, name = "enable", havingValue = "true")
 public class RedisAutoConfiguration {
 
-    @Bean("ruoan-redis")
+    @Bean(value = "ruoan-redis",initMethod = "init")
     @Scope("singleton")
     public RedisInitializing initializing() {
         return new RedisInitializing();

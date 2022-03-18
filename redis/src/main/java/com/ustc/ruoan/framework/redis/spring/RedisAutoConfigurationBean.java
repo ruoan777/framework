@@ -2,6 +2,7 @@ package com.ustc.ruoan.framework.redis.spring;
 
 import com.ustc.ruoan.framework.redis.configuration.RedisInitializing;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationListener;
@@ -13,7 +14,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * @author ruoan
  */
-public class RedisAutoConfigurationBean implements ApplicationContextAware, ApplicationListener<ApplicationContextEvent> {
+public class RedisAutoConfigurationBean implements ApplicationContextAware, ApplicationListener<ApplicationContextEvent> , InitializingBean {
 
     private ApplicationContext applicationContext;
 
@@ -35,5 +36,9 @@ public class RedisAutoConfigurationBean implements ApplicationContextAware, Appl
 
     public ApplicationContext getApplicationContext() {
         return applicationContext;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
     }
 }
