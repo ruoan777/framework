@@ -22,7 +22,7 @@ public class CacheProvider {
     private String name;
 
     public String get(String key) throws InterruptedException {
-        TimeUnit.SECONDS.sleep(1);
-        return name.concat(key);
+        TimeUnit.MILLISECONDS.sleep(500);
+        return name.concat("_").concat(key);
     }
 }

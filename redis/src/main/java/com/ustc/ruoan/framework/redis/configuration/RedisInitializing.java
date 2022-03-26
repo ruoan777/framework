@@ -7,9 +7,8 @@ import com.ustc.ruoan.framework.redis.util.AopTargetUtils;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.reflections.Reflections;
-import org.reflections.scanners.Scanners;
+import org.reflections.scanners.FieldAnnotationsScanner;
 import org.springframework.aop.framework.AopProxyUtils;
-import org.springframework.context.annotation.Bean;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
@@ -34,7 +33,7 @@ public class RedisInitializing extends RedisAutoConfigurationBean {
 
     @SneakyThrows
     public void init() {
-        Reflections scanner = new Reflections(BASE_PACKAGE, Scanners.FieldsAnnotated);
+        Reflections scanner = new Reflections(BASE_PACKAGE, new FieldAnnotationsScanner());
         Set<Field> fields = scanner.getFieldsAnnotatedWith(RedisProvider.class);
         for (Field field : fields) {
             Map<String, ?> values = getApplicationContext().getBeansOfType(field.getDeclaringClass());

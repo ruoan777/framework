@@ -19,7 +19,7 @@ public class HelloController {
     private RedisService redisService;
 
     @GetMapping("/hello")
-    public String hello() throws InterruptedException {
+    public String hello() throws Exception {
         log.info("i am coming");
         return redisService.get("hello");
     }

@@ -22,6 +22,7 @@
         <module>cache</module>
         <module>redis</module>
         <module>web</module>
+        <module>soa-client</module>
     </modules>
 
     <dependencyManagement>
@@ -36,9 +37,13 @@
                 <artifactId>cache</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
+            <dependency>
+                <groupId>com.ustc.ruoan.framework</groupId>
+                <artifactId>soa-client</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
-    
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -67,9 +72,19 @@
             <version>3.12.0</version>
         </dependency>
         <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>19.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
-            <version>0.10.2</version>
+            <version>0.9.10</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
