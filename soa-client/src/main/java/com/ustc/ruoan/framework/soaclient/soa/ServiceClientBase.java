@@ -57,18 +57,6 @@ public abstract class ServiceClientBase<DerivedClient extends ServiceClientBase<
 
     protected ServiceClientBase(Class<DerivedClient> clientClass, String serviceName, String serviceNamespace, String subEnv) {
         System.out.println("do and get url");
-//        this(clientClass, sidecarFound ? ConnectionMode.SIDECAR : ConnectionMode.INDIRECT);
-//
-//        if (sidecarFound) {
-//            String baseUri = buildServiceMeshBaseUri(_serviceName, _serviceNamespace);
-//            setUpStaticRequestContextProvider(baseUri);
-//            Map<String, String> additionalInfo = getClientInfo();
-//            _logger.info("通过ServiceMesh进行服务调用。地址：" + baseUri, LogUtils.addErrorCodeTag(additionalInfo, "FXD304014"));
-//        } else {
-//            setUpDynamicRequestContext(clientClass);
-//        }
-//
-//        initialize();
     }
 
     /**
@@ -172,7 +160,7 @@ public abstract class ServiceClientBase<DerivedClient extends ServiceClientBase<
         Stopwatch remoteCallStopwatch = null;
         try {
             // TODO: 2022/3/26 mock return
-            if (true){
+            if (true) {
                 return returnMockResp();
             }
             //请求序列化
@@ -540,11 +528,11 @@ public abstract class ServiceClientBase<DerivedClient extends ServiceClientBase<
     }
 
     public void setRequestTimeout(String operation, int requestTimeout) {
-        
+
     }
 
     public void setSocketTimeout(String operation, int socketTimeout) {
-        
+
     }
 
     public void setConnectTimeout(String operation, int connectTimeout) {

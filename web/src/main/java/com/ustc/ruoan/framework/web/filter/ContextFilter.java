@@ -13,7 +13,6 @@ import java.util.Map;
  */
 @Slf4j
 @WebFilter(urlPatterns = "/*", filterName = "context-filter", dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD}, asyncSupported = true)
-
 public class ContextFilter implements Filter {
 
     @Override

@@ -1,9 +1,14 @@
 package com.ustc.ruoan.framework.soaclient.anno;
 
+import java.lang.annotation.*;
+
 /**
  * @author ruoan
  * @date 2022/3/20 11:41 上午
  */
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
 public @interface ServiceClientConfigOptions {
 
     String format() default "";
