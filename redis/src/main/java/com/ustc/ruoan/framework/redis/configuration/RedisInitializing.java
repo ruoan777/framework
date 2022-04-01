@@ -1,7 +1,7 @@
 package com.ustc.ruoan.framework.redis.configuration;
 
 import com.ustc.ruoan.framework.redis.ano.RedisProvider;
-import com.ustc.ruoan.framework.redis.provider.CacheProvider;
+import com.ustc.ruoan.framework.redis.provider.RedisCacheProvider;
 import com.ustc.ruoan.framework.redis.spring.RedisAutoConfigurationBean;
 import com.ustc.ruoan.framework.redis.util.AopTargetUtils;
 import lombok.SneakyThrows;
@@ -46,7 +46,7 @@ public class RedisInitializing extends RedisAutoConfigurationBean {
                 log.info(" set " + target.getClass().getName() + " redis field name : " + provider.value());
                 Object singletonTarget = AopProxyUtils.getSingletonTarget(target);
                 target = AopTargetUtils.getTarget(target);
-                field.set(target, new CacheProvider("REDIS"));
+                field.set(target, new RedisCacheProvider("REDIS"));
             }
         }
     }

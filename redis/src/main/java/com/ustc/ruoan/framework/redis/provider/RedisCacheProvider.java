@@ -14,15 +14,23 @@ import java.util.concurrent.TimeUnit;
 @Getter
 @AllArgsConstructor
 @ToString
-public class CacheProvider {
+public class RedisCacheProvider {
 
     /**
      * 模拟redis client
      */
     private String name;
 
-    public String get(String key) throws InterruptedException {
-        TimeUnit.MILLISECONDS.sleep(500);
+    public String get(String key) {
+        try {
+            TimeUnit.MILLISECONDS.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return name.concat("_").concat(key);
+    }
+
+    public Boolean exists(String cacheKey) {
+        return true;
     }
 }

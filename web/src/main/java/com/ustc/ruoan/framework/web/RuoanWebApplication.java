@@ -1,5 +1,6 @@
 package com.ustc.ruoan.framework.web;
 
+import com.ustc.ruoan.framework.cache.anno.EnableCaching;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -9,6 +10,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  */
 @SpringBootApplication
 @EnableAspectJAutoProxy(exposeProxy = true, proxyTargetClass = true)
+@EnableCaching
 public class RuoanWebApplication {
 
     public static void main(String[] args) {

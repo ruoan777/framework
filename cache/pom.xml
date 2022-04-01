@@ -16,6 +16,10 @@
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>com.ustc.ruoan.framework</groupId>
+            <artifactId>redis</artifactId>
+        </dependency>
         <!--添加mysql相关插件-->
         <dependency>
             <groupId>mysql</groupId>
@@ -27,7 +31,7 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.1.0</version>
+            <version>1.3.5</version>
         </dependency>
         <dependency>
             <groupId>org.mybatis.generator</groupId>
@@ -39,6 +43,10 @@
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
             <version>5.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -1,7 +1,7 @@
 package com.ustc.ruoan.framework.web.service;
 
 import com.ustc.ruoan.framework.redis.ano.RedisProvider;
-import com.ustc.ruoan.framework.redis.provider.CacheProvider;
+import com.ustc.ruoan.framework.redis.provider.RedisCacheProvider;
 import com.ustc.ruoan.framework.soaclient.soa.hello.HelloRequestType;
 import com.ustc.ruoan.framework.soaclient.soa.hello.HelloResponseType;
 import com.ustc.ruoan.framework.web.anno.MethodLog;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class RedisService {
 
     @RedisProvider("redis_cluster")
-    private CacheProvider cacheProvider;
+    private RedisCacheProvider redisCacheProvider;
 
     @Autowired
     private RedisService self;
@@ -33,7 +33,7 @@ public class RedisService {
     @MethodLog
     public String anotherGet(String key) throws Exception {
         RedisService redisService = (RedisService) AopContext.currentProxy();
-        HelloResponseType hello = hello(cacheProvider.get(key));
+        HelloResponseType hello = hello(redisCacheProvider.get(key));
         return hello.getMsg();
     }
 

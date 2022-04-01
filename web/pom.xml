@@ -23,6 +23,10 @@
         </dependency>
         <dependency>
             <groupId>com.ustc.ruoan.framework</groupId>
+            <artifactId>cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ustc.ruoan.framework</groupId>
             <artifactId>soa-client</artifactId>
         </dependency>
     </dependencies>

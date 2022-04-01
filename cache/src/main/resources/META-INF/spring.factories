@@ -1,0 +1,2 @@
+#org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+#    com.ustc.ruoan.framework.cache.autoconfigure.CacheAutoConfiguration
