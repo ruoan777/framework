@@ -21,6 +21,8 @@ public @interface Cacheable {
 
     CacheType type() default CacheType.MEM;
 
+    String cluster() default "";
+
     String[] options() default "";
 
     String[] changeFactors() default "";

@@ -1,5 +1,7 @@
 package com.ustc.ruoan.framework.web.service;
 
+import com.ustc.ruoan.framework.cache.Cache;
+import com.ustc.ruoan.framework.cache.anno.Cacheable;
 import com.ustc.ruoan.framework.redis.ano.RedisProvider;
 import com.ustc.ruoan.framework.redis.provider.RedisCacheProvider;
 import com.ustc.ruoan.framework.soaclient.soa.hello.HelloRequestType;
@@ -25,12 +27,15 @@ public class RedisService {
     @Autowired
     private Proxy proxy;
 
+    @Cacheable
+    private Cache cache;
+
     @MethodLog
     public String get(String key) throws Exception {
         return self.anotherGet(key);
     }
 
-    @MethodLog
+    @Cacheable
     public String anotherGet(String key) throws Exception {
         RedisService redisService = (RedisService) AopContext.currentProxy();
         HelloResponseType hello = hello(redisCacheProvider.get(key));

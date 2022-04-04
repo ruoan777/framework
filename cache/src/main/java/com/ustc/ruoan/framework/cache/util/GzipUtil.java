@@ -5,8 +5,10 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Base64;
 import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 /**
  * @author ruoan
@@ -26,6 +28,15 @@ public class GzipUtil {
         return StringUtils.EMPTY;
     }
 
+    public static String compressToString(String str) {
+        try {
+            return compressToString(str, GZIP_ENCODE_UTF_8);
+        } catch (Exception e) {
+            log.error("GzipUtil_compressToString_error", e);
+        }
+        return StringUtils.EMPTY;
+    }
+
     public static String uncompressToString(byte[] bytes, String encoding) throws Exception {
         if (bytes == null || bytes.length == 0) {
             return null;
@@ -39,6 +50,25 @@ public class GzipUtil {
                 out.write(buffer, 0, n);
             }
             return out.toString(encoding);
+        }
+    }
+
+    public static String compressToString(String str, String encoding) throws IOException {
+        if (str == null || str.length() == 0) {
+            return null;
+        }
+        return Base64.getEncoder().encodeToString(compress(str, encoding));
+    }
+
+    public static byte[] compress(String str, String encoding) throws IOException {
+        if (str == null || str.length() == 0) {
+            return null;
+        }
+        try (ByteArrayOutputStream out = new ByteArrayOutputStream();
+             GZIPOutputStream gzip = new GZIPOutputStream(out)) {
+            gzip.write(str.getBytes(encoding));
+            gzip.close();
+            return out.toByteArray();
         }
     }
 

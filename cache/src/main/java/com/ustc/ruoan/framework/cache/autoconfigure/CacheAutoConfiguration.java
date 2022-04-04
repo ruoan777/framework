@@ -1,5 +1,8 @@
 package com.ustc.ruoan.framework.cache.autoconfigure;
 
+import com.ustc.ruoan.framework.cache.CacheFactory;
+import com.ustc.ruoan.framework.cache.mem.MemCacheProvider;
+import com.ustc.ruoan.framework.cache.redis.RedisCacheProvider;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +16,21 @@ import sun.jvm.hotspot.HelloWorld;
  */
 @Configuration
 public class CacheAutoConfiguration {
+
+    @Bean
+    public CacheFactory cacheFactory() {
+        return new CacheFactory();
+    }
+
+    @Bean
+    public RedisCacheProvider redisCacheProvider() {
+        return new RedisCacheProvider();
+    }
+
+    @Bean
+    public MemCacheProvider memCacheProvider() {
+        return new MemCacheProvider();
+    }
 
     @Bean
     public ServletRegistrationBean<DispatcherServlet> servletRegistrationBean(WebApplicationContext applicationContext) {

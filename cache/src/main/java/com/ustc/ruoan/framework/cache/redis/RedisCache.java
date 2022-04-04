@@ -7,6 +7,7 @@ import com.ustc.ruoan.framework.cache.util.JsonUtil;
 import com.ustc.ruoan.framework.redis.provider.RedisCacheProvider;
 import org.apache.commons.lang3.StringUtils;
 
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -23,7 +24,7 @@ public class RedisCache<V> implements Cache<String, V> {
 
     private RedisCacheProvider provider;
     private String name;
-    private Class<V> type;
+    private Type type;
     private Set<String> keys;
     private Boolean gzip;
     private List<String> changeFactors;
@@ -33,7 +34,7 @@ public class RedisCache<V> implements Cache<String, V> {
     private AtomicLong missCount;
 
     public RedisCache(RedisCacheProvider provider,
-                      Class type,
+                      Type type,
                       String prefix,
                       Boolean gzip,
                       int expiryMillis,
@@ -78,7 +79,7 @@ public class RedisCache<V> implements Cache<String, V> {
         if (StringUtils.isEmpty(redisContent)) {
             return null;
         }
-        if (gzip) {
+        if (this.gzip) {
             redisContent = GzipUtil.uncompressToString(redisContent);
         }
         return JsonUtil.parseObject(redisContent, this.type);
@@ -92,7 +93,7 @@ public class RedisCache<V> implements Cache<String, V> {
     @Override
     public boolean containsKey(String key) {
         String cacheKey = buildKey(key);
-        Boolean existsInRedis = this.provider.exists(cacheKey);
+        boolean existsInRedis = this.provider.exists(cacheKey);
         boolean existsInMem = this.keys.contains(cacheKey);
         //内存有但redis没有 -> 从内存中删除key
         if (existsInMem && !existsInRedis) {
@@ -112,42 +113,77 @@ public class RedisCache<V> implements Cache<String, V> {
 
     @Override
     public Map<String, V> getAll(Collection<String> keys) {
-        return null;
+        Map<String, V> values = new HashMap<>();
+        for (String key : keys) {
+            V v = get(key);
+            values.put(key, v);
+        }
+        return values;
     }
 
     @Override
     public Map<String, V> asMap() {
-        return null;
+        return getAll(keys());
     }
 
     @Override
     public List<String> getChangeFactors() {
-        return null;
+        return this.changeFactors;
     }
 
     @Override
     public boolean put(String key, V value) {
-        return false;
+        String buildKey = buildKey(key);
+        String content = JsonUtil.toJsonString(value);
+        if (this.gzip) {
+            content = GzipUtil.compressToString(content);
+        }
+        boolean success = this.provider.set(buildKey, content);
+        if (!success) {
+            return false;
+        }
+        keys().add(buildKey);
+        this.refreshDate = new Date();
+        if (this.expiryMillis > 0) {
+            int seconds = this.expiryMillis / 1000;
+            return this.provider.expire(buildKey, seconds);
+        }
+        return true;
     }
 
     @Override
     public void putAll(Map<String, V> values) {
-
+        values.forEach(this::put);
+        this.refreshDate = new Date();
     }
 
     @Override
     public void clear() {
+        Set<String> keys = getAllRedisKeys();
+        String[] allKeys = keys.toArray(new String[0]);
+        this.provider.del(allKeys);
+        this.refreshDate = new Date();
+        this.keys().clear();
+    }
 
+    /**
+     * 具体实现应该考虑调用redis提供的 scan 方法
+     */
+    private Set<String> getAllRedisKeys() {
+        return keys();
     }
 
     @Override
     public void clear(String key) {
-
+        String buildKey = buildKey(key);
+        this.provider.del(buildKey);
+        keys().remove(buildKey);
+        this.refreshDate = new Date();
     }
 
     @Override
     public void clearAll(Collection<String> keys) {
-
+        keys.forEach(this::clear);
     }
 
     @Override
