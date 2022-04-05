@@ -5,6 +5,7 @@ import com.ustc.ruoan.framework.cache.anno.Cacheable;
 import com.ustc.ruoan.framework.cache.manage.CacheConst;
 import com.ustc.ruoan.framework.soaclient.soa.hello.HelloRequestType;
 import com.ustc.ruoan.framework.soaclient.soa.hello.HelloResponseType;
+import com.ustc.ruoan.framework.web.anno.MethodLog;
 import com.ustc.ruoan.framework.web.proxy.Proxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,6 +20,7 @@ public class HelloCache {
     @Autowired
     private Proxy proxy;
 
+    @MethodLog
     @Cacheable(name = "HelloCache", key = "hello_{1}", expiryMillis = CacheConst.ONE_DAY, type = CacheType.REDIS)
     public HelloResponseType hello(String name) {
         HelloRequestType helloRequestType = new HelloRequestType();

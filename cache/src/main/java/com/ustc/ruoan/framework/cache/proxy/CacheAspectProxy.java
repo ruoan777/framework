@@ -21,6 +21,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
@@ -34,6 +35,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @date 2022/4/4 11:55 下午
  */
 @Aspect
+@Order(5)
 @Slf4j
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class CacheAspectProxy {
