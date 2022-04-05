@@ -1,7 +1,9 @@
 package com.ustc.ruoan.framework.cache.autoconfigure;
 
 import com.ustc.ruoan.framework.cache.CacheFactory;
+import com.ustc.ruoan.framework.cache.generator.DefaultKeyGenerator;
 import com.ustc.ruoan.framework.cache.mem.MemCacheProvider;
+import com.ustc.ruoan.framework.cache.proxy.CacheAspectProxy;
 import com.ustc.ruoan.framework.cache.redis.RedisCacheProvider;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +25,11 @@ public class CacheAutoConfiguration {
     }
 
     @Bean
+    public CacheAspectProxy cacheAspectProxy() {
+        return new CacheAspectProxy();
+    }
+
+    @Bean
     public RedisCacheProvider redisCacheProvider() {
         return new RedisCacheProvider();
     }
@@ -30,6 +37,11 @@ public class CacheAutoConfiguration {
     @Bean
     public MemCacheProvider memCacheProvider() {
         return new MemCacheProvider();
+    }
+
+    @Bean
+    public DefaultKeyGenerator defaultKeyGenerator() {
+        return new DefaultKeyGenerator();
     }
 
     @Bean

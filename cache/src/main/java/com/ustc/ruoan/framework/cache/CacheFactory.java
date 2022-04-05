@@ -92,14 +92,14 @@ public class CacheFactory implements InitializingBean, ApplicationContextAware {
         }
     }
 
-    private synchronized Cache<?, ?> createCache(Cacheable cacheable, Type type) {
+    public synchronized Cache<String, ?> createCache(Cacheable cacheable, Type type) {
         if (this.caches.containsKey(cacheable.name())) {
             return this.caches.get(cacheable.name());
         }
         if (this.cacheProviderMap.containsKey(cacheable.type())) {
             CacheProvider cacheProvider = this.cacheProviderMap.get(cacheable.type());
-            Cache<Object, Object> cache = cacheProvider.build(cacheable.name(), type, cacheable);
-            CacheStatusProxy<?, ?> proxy = new CacheStatusProxy<>(cacheable.name(), cacheable.type(), cache);
+            Cache<String, Object> cache = cacheProvider.build(cacheable.name(), type, cacheable);
+            CacheStatusProxy<String, ?> proxy = new CacheStatusProxy<>(cacheable.name(), cacheable.type(), cache);
             this.caches.put(cacheable.name(), proxy);
             return proxy;
         }
@@ -142,5 +142,9 @@ public class CacheFactory implements InitializingBean, ApplicationContextAware {
     @Override
     public void setApplicationContext(@NonNull ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
+    }
+
+    public Map<String, Cache> getCaches() {
+        return caches;
     }
 }

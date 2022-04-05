@@ -7,12 +7,12 @@ package com.ustc.ruoan.framework.cache.anno;
 public enum CacheValueType {
 
     /**
-     * 缓存不为空
+     * 缓存不允许为空
      */
     CACHE_NOT_EMPTY,
 
     /**
-     * 缓存为空
+     * 缓存允许为空
      */
-    CACHE_EMPTY;
+    CACHE_EMPTY
 }

@@ -2,6 +2,7 @@ package com.ustc.ruoan.framework.cache.anno;
 
 import com.ustc.ruoan.framework.cache.generator.DefaultKeyGenerator;
 import com.ustc.ruoan.framework.cache.generator.KeyGenerator;
+import com.ustc.ruoan.framework.cache.manage.CacheConst;
 
 import java.lang.annotation.*;
 
@@ -21,7 +22,7 @@ public @interface Cacheable {
 
     CacheType type() default CacheType.MEM;
 
-    String cluster() default "";
+    String cluster() default CacheConst.DEFAULT_REDIS_CLUSTER;
 
     String[] options() default "";
 

@@ -64,4 +64,8 @@ public class RedisCacheProvider {
     public Map<String, String> hgetAll(String key) {
         return new HashMap<>();
     }
+
+    public boolean set(String lockKey, String s, String nx, String ex, int i) {
+        return true;
+    }
 }
