@@ -25,13 +25,13 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2022/5/4 4:39 下午
  */
 @RestController
-//@GetMapping("/nacos")
+@RequestMapping("/nacos")
 public class NacosLongPollingController extends HttpServlet {
 
     @Autowired
     private NacosLongPollingService nacosLongPollingService;
 
-    @RequestMapping("/pull")
+    @GetMapping("/pull")
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         String dataId = req.getParameter("dataId");
