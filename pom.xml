@@ -28,6 +28,7 @@
         <module>redis</module>
         <module>web</module>
         <module>soa-client</module>
+        <module>thread-pool-alarm</module>
     </modules>
 
     <dependencyManagement>
@@ -35,17 +36,22 @@
             <dependency>
                 <groupId>com.ustc.ruoan.framework</groupId>
                 <artifactId>redis</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.ustc.ruoan.framework</groupId>
                 <artifactId>cache</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.ustc.ruoan.framework</groupId>
                 <artifactId>soa-client</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ustc.ruoan.framework</groupId>
+                <artifactId>thread-pool-alarm</artifactId>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
